@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: poller
+  name: poller
+spec:
+  containers:
+  - image: nginx
+    name: poller
+    resources: {}
+    ports:
+    - containerPort: 8080
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: web
+  name: web
+spec:
+  containers:
+  - command: ["/bin/echo"]
+    args: ["Ambassador Hello"]
+    image: nginx
+    name: web
+    resources: {}
+    ports:
+    - containerPort: 80
